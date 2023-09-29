@@ -107,10 +107,34 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
     if (!isConnected()) {
         MutexLocker lock(this);
         int result = 0;
-        if (ip == NULL)
+        if (ip == NULL){
             result = _client.connect(this->domain.c_str(), this->port);
-        else
+        }
+        else{
             result = _client.connect(this->ip, this->port);
+        }
+
+
+        if (!result){
+            IPAddress server(ip[0], ip[1], ip[2], ip[3]);
+            if (_client.connect(server, this->port)){
+                Serial.println("Success");
+            }
+            else{
+                Serial.println("Failed using IPAddress");
+            }
+        }
+
+        Serial.println(ip == NULL);
+        Serial.println(ip[0]);
+        Serial.println(ip[1]);
+        Serial.println(ip[2]);
+        Serial.println(ip[3]);
+        Serial.println(domain);
+        Serial.println(this->domain.c_str());
+        Serial.println(port);
+        Serial.println("Connecting...");
+        Serial.println(result);
 
         if (result) {
             nextMsgId = 1;
@@ -169,6 +193,7 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
                 unsigned long t = millis();
                 if (t-lastInActivity > this->keepalive*1000UL) {
                     _client.stop();
+                    Serial.println("Error in !_client.available()");
                     return false;
                 }
             }
@@ -184,11 +209,13 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
                 } else {
                     // check EMQTT_CONNACK_RESPONSE code.
                     debug_print(" Connect fail. code = [%d]\n", buffer[3]);
+                    Serial.println(buffer[3]);
                 }
             }
         }
         _client.stop();
     }
+    Serial.println("Error in isConnected()");
     return false;
 }
 

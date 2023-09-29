@@ -3,9 +3,10 @@
 #include "MQTT.h"
 
 //const char* mqttServer = "https://153.104.61.218";
-
+//const char* mqttServer = "152.104.61.218";
 
 uint8_t mqttServer[] = {152, 104, 61, 218};
+
 uint16_t mqttPort = 1883;
 const char* mqttUsername = "ece2431";
 const char* mqttPassword = "villaNova";

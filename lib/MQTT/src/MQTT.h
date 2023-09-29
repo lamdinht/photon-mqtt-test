@@ -67,6 +67,8 @@ bug fixed and features pull requests
 #include "spark_wiring_string.h"
 #include "spark_wiring_tcpclient.h"
 #include "spark_wiring_usbserial.h"
+#include "Particle.h"
+
 
 // MQTT_MAX_PACKET_SIZE : Maximum packet size
 // this size is total of [MQTT Header(Max:5byte) + Topic Name Length + Topic Name + Message ID(QoS1|2) + Payload]

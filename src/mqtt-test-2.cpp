@@ -9,12 +9,13 @@
 #include "MQTT.h"
 
 //const char* mqttServer = "https://153.104.61.218";
-
+//const char* mqttServer = "152.104.61.218";
 
 void setup();
 void loop();
 #line 8 "e:/Villanova/PhotonProjects/embedded-systems-project/mqtt-test-2/src/mqtt-test-2.ino"
 uint8_t mqttServer[] = {152, 104, 61, 218};
+
 uint16_t mqttPort = 1883;
 const char* mqttUsername = "ece2431";
 const char* mqttPassword = "villaNova";

@@ -60,12 +60,12 @@ void setup() {
     // Connect to the MQTT broker using TCPClient
     if (TCPclient.connect(mqttServer, mqttPort))
     {
-      Serial.println("connected");
+      Serial.println("TCP connected");
       TCPclient.println();
     }
     else
     {
-      Serial.println("connection failed");
+      Serial.println("TCP connection failed");
     }
 }
 

@@ -7,35 +7,35 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .dynalib      00000004  080a0018  080a0018  00010018  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  2 .text         00002144  080a001c  080a001c  0001001c  2**2
+  2 .text         00002154  080a001c  080a001c  0001001c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  3 .backup       00000004  40024000  080a2160  00014000  2**2
+  3 .backup       00000004  40024000  080a2170  00014000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .data         00000080  20000000  080a2164  00020000  2**2
+  4 .data         00000080  20000000  080a2174  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   5 .bss          000005e0  20000080  20000080  00030080  2**2
                   ALLOC
-  6 .module_info_suffix 00000028  080a21e4  080a21e4  000221e4  2**0
+  6 .module_info_suffix 00000028  080a21f4  080a21f4  000221f4  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .module_info_crc 00000004  080a220c  080a220c  0002220c  2**0
+  7 .module_info_crc 00000004  080a221c  080a221c  0002221c  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .debug_info   000e46ba  00000000  00000000  00022210  2**0
+  8 .debug_info   000e46ba  00000000  00000000  00022220  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_abbrev 00010fb6  00000000  00000000  001068ca  2**0
+  9 .debug_abbrev 00010fb6  00000000  00000000  001068da  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00018c95  00000000  00000000  00117880  2**0
+ 10 .debug_loc    00018c95  00000000  00000000  00117890  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_aranges 00001d68  00000000  00000000  00130515  2**0
+ 11 .debug_aranges 00001d68  00000000  00000000  00130525  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00004808  00000000  00000000  0013227d  2**0
+ 12 .debug_ranges 00004808  00000000  00000000  0013228d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  00023daf  00000000  00000000  00136a85  2**0
+ 13 .debug_macro  00023daf  00000000  00000000  00136a95  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   000268fc  00000000  00000000  0015a834  2**0
+ 14 .debug_line   000268fc  00000000  00000000  0015a844  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    000aece0  00000000  00000000  00181130  2**0
+ 15 .debug_str    000aece0  00000000  00000000  00181140  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  00004eac  00000000  00000000  0022fe10  2**2
+ 16 .debug_frame  00004eac  00000000  00000000  0022fe20  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -75,7 +75,7 @@ void* module_user_pre_init() {
  80a0040:	bd08      	pop	{r3, pc}
  80a0042:	bf00      	nop
  80a0044:	20000000 	.word	0x20000000
- 80a0048:	080a2164 	.word	0x080a2164
+ 80a0048:	080a2174 	.word	0x080a2174
  80a004c:	20000080 	.word	0x20000080
  80a0050:	20000080 	.word	0x20000080
  80a0054:	2000065d 	.word	0x2000065d
@@ -113,8 +113,8 @@ void module_user_init()
     for (ctor_num=0; ctor_num < link_constructors_size/sizeof(constructor_ptr_t); ctor_num++ )
  80a0078:	3501      	adds	r5, #1
  80a007a:	e7f7      	b.n	80a006c <module_user_init+0x10>
- 80a007c:	080a2140 	.word	0x080a2140
- 80a0080:	080a2160 	.word	0x080a2160
+ 80a007c:	080a2148 	.word	0x080a2148
+ 80a0080:	080a2168 	.word	0x080a2168
 
 080a0084 <module_user_setup>:
 
@@ -309,7 +309,7 @@ void setup() {
  80a0182:	f000 fe1d 	bl	80a0dc0 <_ZN9TCPClient7connectE9IPAddresstm>
  80a0186:	b178      	cbz	r0, 80a01a8 <setup+0x9c>
     {
-      Serial.println("connected");
+      Serial.println("TCP connected");
  80a0188:	f001 fa40 	bl	80a160c <_Z16_fetch_usbserialv>
  80a018c:	4915      	ldr	r1, [pc, #84]	; (80a01e4 <setup+0xd8>)
  80a018e:	f001 f85f 	bl	80a1250 <_ZN5Print7printlnEPKc>
@@ -319,7 +319,7 @@ void setup() {
     }
     else
     {
-      Serial.println("connection failed");
+      Serial.println("TCP connection failed");
     }
 }
  80a0198:	b007      	add	sp, #28
@@ -329,7 +329,7 @@ void setup() {
  80a01a0:	4911      	ldr	r1, [pc, #68]	; (80a01e8 <setup+0xdc>)
  80a01a2:	f001 f855 	bl	80a1250 <_ZN5Print7printlnEPKc>
  80a01a6:	e7e3      	b.n	80a0170 <setup+0x64>
-      Serial.println("connection failed");
+      Serial.println("TCP connection failed");
  80a01a8:	f001 fa30 	bl	80a160c <_Z16_fetch_usbserialv>
  80a01ac:	490f      	ldr	r1, [pc, #60]	; (80a01ec <setup+0xe0>)
  80a01ae:	f001 f84f 	bl	80a1250 <_ZN5Print7printlnEPKc>
@@ -349,7 +349,7 @@ void setup() {
  80a01e0:	200000f8 	.word	0x200000f8
  80a01e4:	080a1dc3 	.word	0x080a1dc3
  80a01e8:	080a1da2 	.word	0x080a1da2
- 80a01ec:	080a1dcd 	.word	0x080a1dcd
+ 80a01ec:	080a1dd1 	.word	0x080a1dd1
 
 080a01f0 <loop>:
 
@@ -543,7 +543,7 @@ MQTT::MQTT(const uint8_t *ip, uint16_t port, void (*callback)(char*,uint8_t*,uns
  80a0300:	4620      	mov	r0, r4
  80a0302:	b004      	add	sp, #16
  80a0304:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
- 80a0308:	080a1e6f 	.word	0x080a1e6f
+ 80a0308:	080a1e77 	.word	0x080a1e77
 
 080a030c <_ZN4MQTT8readByteEv>:
     }
@@ -1362,19 +1362,19 @@ class IPAddress : public Printable {
     return false;
  80a085c:	2500      	movs	r5, #0
  80a085e:	e7ac      	b.n	80a07ba <_ZN4MQTT7connectEPKcS1_S1_S1_NS_9EMQTT_QOSEhS1_bNS_12MQTT_VERSIONE+0x286>
- 80a0860:	080a1f68 	.word	0x080a1f68
- 80a0864:	080a1e04 	.word	0x080a1e04
- 80a0868:	080a1e23 	.word	0x080a1e23
- 80a086c:	080a1e42 	.word	0x080a1e42
- 80a0870:	080a1e46 	.word	0x080a1e46
- 80a0874:	080a1e4c 	.word	0x080a1e4c
- 80a0878:	080a1e5a 	.word	0x080a1e5a
- 80a087c:	080a1e6d 	.word	0x080a1e6d
- 80a0880:	080a1ea5 	.word	0x080a1ea5
- 80a0884:	080a1e70 	.word	0x080a1e70
- 80a0888:	080a1e0c 	.word	0x080a1e0c
- 80a088c:	080a1eac 	.word	0x080a1eac
- 80a0890:	080a1e8e 	.word	0x080a1e8e
+ 80a0860:	080a1f70 	.word	0x080a1f70
+ 80a0864:	080a1e0c 	.word	0x080a1e0c
+ 80a0868:	080a1e2b 	.word	0x080a1e2b
+ 80a086c:	080a1e4a 	.word	0x080a1e4a
+ 80a0870:	080a1e4e 	.word	0x080a1e4e
+ 80a0874:	080a1e54 	.word	0x080a1e54
+ 80a0878:	080a1e62 	.word	0x080a1e62
+ 80a087c:	080a1e75 	.word	0x080a1e75
+ 80a0880:	080a1ead 	.word	0x080a1ead
+ 80a0884:	080a1e78 	.word	0x080a1e78
+ 80a0888:	080a1e14 	.word	0x080a1e14
+ 80a088c:	080a1eb4 	.word	0x080a1eb4
+ 80a0890:	080a1e96 	.word	0x080a1e96
 
 080a0894 <_ZN4MQTT7connectEPKcS1_S1_>:
 bool MQTT::connect(const char *id, const char *user, const char *pass) {
@@ -2163,7 +2163,7 @@ void TCPClient::flush()
  80a0c72:	4620      	mov	r0, r4
  80a0c74:	bd10      	pop	{r4, pc}
  80a0c76:	bf00      	nop
- 80a0c78:	080a1eec 	.word	0x080a1eec
+ 80a0c78:	080a1ef4 	.word	0x080a1ef4
 
 080a0c7c <_ZNSt23_Sp_counted_ptr_inplaceIN9TCPClient4DataESaIS1_ELN9__gnu_cxx12_Lock_policyE0EED0Ev>:
       ~_Sp_counted_ptr_inplace() noexcept { }
@@ -2225,7 +2225,7 @@ public:
  80a0cba:	4798      	blx	r3
  80a0cbc:	4628      	mov	r0, r5
  80a0cbe:	bd38      	pop	{r3, r4, r5, pc}
- 80a0cc0:	080a1efc 	.word	0x080a1efc
+ 80a0cc0:	080a1f04 	.word	0x080a1f04
 
 080a0cc4 <_ZN9TCPClientD0Ev>:
  80a0cc4:	b510      	push	{r4, lr}
@@ -2271,7 +2271,7 @@ class IPAddress : public Printable {
  80a0cee:	4630      	mov	r0, r6
  80a0cf0:	7023      	strb	r3, [r4, #0]
  80a0cf2:	bd70      	pop	{r4, r5, r6, pc}
- 80a0cf4:	080a1f68 	.word	0x080a1f68
+ 80a0cf4:	080a1f70 	.word	0x080a1f70
 
 080a0cf8 <_ZN9TCPClient4peekEv>:
 {
@@ -2508,8 +2508,8 @@ class IPAddress : public Printable {
  80a0e94:	2001      	movs	r0, #1
         return connected;
  80a0e96:	e7fa      	b.n	80a0e8e <_ZN9TCPClient7connectE9IPAddresstm+0xce>
- 80a0e98:	080a1eb5 	.word	0x080a1eb5
- 80a0e9c:	080a1ebc 	.word	0x080a1ebc
+ 80a0e98:	080a1ebd 	.word	0x080a1ebd
+ 80a0e9c:	080a1ec4 	.word	0x080a1ec4
 
 080a0ea0 <_ZN9TCPClient9availableEv>:
 {
@@ -2814,8 +2814,8 @@ TCPClient::TCPClient(sock_handle_t sock) :
  80a1066:	f7ff fea2 	bl	80a0dae <_ZN9TCPClient12flush_bufferEv>
 }
  80a106a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
- 80a106c:	080a1efc 	.word	0x080a1efc
- 80a1070:	080a1ed8 	.word	0x080a1ed8
+ 80a106c:	080a1f04 	.word	0x080a1f04
+ 80a1070:	080a1ee0 	.word	0x080a1ee0
 
 080a1074 <_ZN9TCPClientC1Ev>:
 TCPClient::TCPClient() : TCPClient(socket_handle_invalid())
@@ -2914,7 +2914,7 @@ class IPAddress : public Printable {
  80a1104:	4620      	mov	r0, r4
  80a1106:	e7fa      	b.n	80a10fe <_ZN9TCPClient7connectEPKctm+0x5a>
  80a1108:	200005a0 	.word	0x200005a0
- 80a110c:	080a1f68 	.word	0x080a1f68
+ 80a110c:	080a1f70 	.word	0x080a1f70
 
 080a1110 <_ZN6String10invalidateEv>:
 	len = 0;
@@ -3308,7 +3308,7 @@ void spark::logProcessControlRequest(ctrl_request* req) {
 }
  80a12b2:	4770      	bx	lr
  80a12b4:	20000124 	.word	0x20000124
- 80a12b8:	080a1f40 	.word	0x080a1f40
+ 80a12b8:	080a1f48 	.word	0x080a1f48
 
 080a12bc <_GLOBAL__sub_I_TIME_FORMAT_DEFAULT>:
             calendar_time_cache = Convert_UnixTime_To_CalendarTime(unix_time);
@@ -3464,7 +3464,7 @@ void module_user_init_hook()
  80a137a:	bf00      	nop
  80a137c:	40024000 	.word	0x40024000
  80a1380:	40024004 	.word	0x40024004
- 80a1384:	080a2160 	.word	0x080a2160
+ 80a1384:	080a2170 	.word	0x080a2170
  80a1388:	40024000 	.word	0x40024000
  80a138c:	9a271c1e 	.word	0x9a271c1e
 
@@ -3662,7 +3662,7 @@ IPAddress::IPAddress()
  80a149a:	4620      	mov	r0, r4
  80a149c:	bd10      	pop	{r4, pc}
  80a149e:	bf00      	nop
- 80a14a0:	080a1f68 	.word	0x080a1f68
+ 80a14a0:	080a1f70 	.word	0x080a1f70
 
 080a14a4 <_ZN9IPAddressC1ERK16_HAL_IPAddress_t>:
 IPAddress::IPAddress(const HAL_IPAddress& address)
@@ -3680,7 +3680,7 @@ IPAddress::IPAddress(const HAL_IPAddress& address)
  80a14c0:	701a      	strb	r2, [r3, #0]
 }
  80a14c2:	bd10      	pop	{r4, pc}
- 80a14c4:	080a1f68 	.word	0x080a1f68
+ 80a14c4:	080a1f70 	.word	0x080a1f70
 
 080a14c8 <_ZN9IPAddressC1Em>:
 IPAddress::IPAddress(uint32_t address)
@@ -3692,7 +3692,7 @@ IPAddress::IPAddress(uint32_t address)
  80a14d0:	7502      	strb	r2, [r0, #20]
 }
  80a14d2:	4770      	bx	lr
- 80a14d4:	080a1f68 	.word	0x080a1f68
+ 80a14d4:	080a1f70 	.word	0x080a1f70
 
 080a14d8 <_ZN9IPAddress8set_ipv4Ehhhh>:
 {
@@ -3721,7 +3721,7 @@ IPAddress::IPAddress(uint8_t first_octet, uint8_t second_octet, uint8_t third_oc
 }
  80a1504:	b003      	add	sp, #12
  80a1506:	bd30      	pop	{r4, r5, pc}
- 80a1508:	080a1f68 	.word	0x080a1f68
+ 80a1508:	080a1f70 	.word	0x080a1f70
 
 080a150c <_ZN9IPAddressaSEPKh>:
 {
@@ -3748,7 +3748,7 @@ IPAddress::IPAddress(const uint8_t* address)
 }
  80a152c:	4620      	mov	r0, r4
  80a152e:	bd10      	pop	{r4, pc}
- 80a1530:	080a1f68 	.word	0x080a1f68
+ 80a1530:	080a1f70 	.word	0x080a1f70
 
 080a1534 <_ZN9USBSerial14blockOnOverrunEb>:
   HAL_USB_USART_Flush_Data(_serial);
@@ -3883,7 +3883,7 @@ USBSerial::USBSerial(HAL_USB_USART_Serial serial, const HAL_USB_USART_Config& co
 }
  80a15d0:	4620      	mov	r0, r4
  80a15d2:	bd10      	pop	{r4, pc}
- 80a15d4:	080a1f7c 	.word	0x080a1f7c
+ 80a15d4:	080a1f84 	.word	0x080a1f84
 
 080a15d8 <_ZN9USBSerial5beginEl>:
     HAL_USB_USART_Begin(_serial, speed, NULL);
@@ -4168,7 +4168,7 @@ USARTSerial::USARTSerial(hal_usart_interface_t serial, hal_usart_ring_buffer_t *
 }
  80a1764:	4620      	mov	r0, r4
  80a1766:	bd10      	pop	{r4, pc}
- 80a1768:	080a1fac 	.word	0x080a1fac
+ 80a1768:	080a1fb4 	.word	0x080a1fb4
 
 080a176c <_Z22__fetch_global_Serial1v>:
 {
@@ -4334,7 +4334,7 @@ the same way.
 }
  80a185e:	4770      	bx	lr
  80a1860:	20000598 	.word	0x20000598
- 80a1864:	080a1fdc 	.word	0x080a1fdc
+ 80a1864:	080a1fe4 	.word	0x080a1fe4
 
 080a1868 <_ZN5spark12NetworkClass7connectEj>:
         return Network;
@@ -4529,7 +4529,7 @@ IPAddress NetworkClass::resolve(const char* name) {
 } // spark
  80a1952:	4770      	bx	lr
  80a1954:	200005a0 	.word	0x200005a0
- 80a1958:	080a2018 	.word	0x080a2018
+ 80a1958:	080a2020 	.word	0x080a2020
 
 080a195c <_GLOBAL__sub_I_INADDR_NONE>:
 #include "spark_wiring_ipaddress.h"
@@ -4555,7 +4555,7 @@ const IPAddress INADDR_NONE(0, 0, 0, 0);
  80a197c:	4901      	ldr	r1, [pc, #4]	; (80a1984 <_ZNSt19_Sp_make_shared_tag5_S_eqERKSt9type_info+0x8>)
  80a197e:	f000 b8fb 	b.w	80a1b78 <_ZNKSt9type_infoeqERKS_>
  80a1982:	bf00      	nop
- 80a1984:	080a2064 	.word	0x080a2064
+ 80a1984:	080a206c 	.word	0x080a206c
 
 080a1988 <_ZNK10__cxxabiv117__class_type_info11__do_upcastEPKS0_PPv>:
  80a1988:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
@@ -4597,7 +4597,7 @@ const IPAddress INADDR_NONE(0, 0, 0, 0);
  80a19d0:	f000 f8cf 	bl	80a1b72 <_ZNSt9type_infoD1Ev>
  80a19d4:	4620      	mov	r0, r4
  80a19d6:	bd10      	pop	{r4, pc}
- 80a19d8:	080a20a4 	.word	0x080a20a4
+ 80a19d8:	080a20ac 	.word	0x080a20ac
 
 080a19dc <_ZN10__cxxabiv117__class_type_infoD0Ev>:
  80a19dc:	b510      	push	{r4, lr}
@@ -4675,7 +4675,7 @@ const IPAddress INADDR_NONE(0, 0, 0, 0);
  80a1a78:	f7ff ffa6 	bl	80a19c8 <_ZN10__cxxabiv117__class_type_infoD1Ev>
  80a1a7c:	4620      	mov	r0, r4
  80a1a7e:	bd10      	pop	{r4, pc}
- 80a1a80:	080a2104 	.word	0x080a2104
+ 80a1a80:	080a210c 	.word	0x080a210c
 
 080a1a84 <_ZN10__cxxabiv120__si_class_type_infoD0Ev>:
  80a1a84:	b510      	push	{r4, lr}
@@ -4982,122 +4982,125 @@ const IPAddress INADDR_NONE(0, 0, 0, 0);
  80a1d88:	6f74 4d20 5451 2054 7242 6b6f 7265 7400     to MQTT Broker.t
  80a1d98:	7365 2f74 6f74 6970 0063 6146 6c69 6465     est/topic.Failed
  80a1da8:	7420 206f 6f63 6e6e 6365 2074 6f74 4d20      to connect to M
- 80a1db8:	5451 2054 7242 6b6f 7265 6300 6e6f 656e     QTT Broker.conne
- 80a1dc8:	7463 6465 6300 6e6f 656e 7463 6f69 206e     cted.connection 
- 80a1dd8:	6166 6c69 6465 7000 6f68 6f74 366e 5f30     failed.photon60_
- 80a1de8:	7169 7969 766a 6a61 0061 6976 6c6c 4e61     iqiyjvaja.villaN
- 80a1df8:	766f 0061 6365 3265 3334 0031 7553 6363     ova.ece2431.Succ
- 80a1e08:	7365 0073 6146 6c69 6465 7520 6973 676e     ess.Failed using
- 80a1e18:	4920 4150 6464 6572 7373 0a00 200a 6150      IPAddress... Pa
- 80a1e28:	7373 6465 7420 7261 6567 2074 6461 7264     ssed target addr
- 80a1e38:	7365 2073 6e69 6f66 0020 5049 003a 6f50     ess info .IP:.Po
- 80a1e48:	7472 003a 6f43 6e6e 6365 6974 676e 2e2e     rt:.Connecting..
- 80a1e58:	002e 6f43 6e6e 6365 6974 6e6f 5320 6174     ..Connection Sta
- 80a1e68:	7574 3a73 0a00 000a 7245 6f72 2072 6e69     tus:....Error in
- 80a1e78:	2120 635f 696c 6e65 2e74 7661 6961 616c      !_client.availa
- 80a1e88:	6c62 2865 0029 7245 6f72 2072 6e69 6920     ble().Error in i
- 80a1e98:	4373 6e6f 656e 7463 6465 2928 0000 4d04     sConnected()...M
- 80a1ea8:	5451 0454 0600 514d 7349 7064 7703 7269     QTT...MQIsdp.wir
- 80a1eb8:	6e69 0067 4354 4350 696c 6e65 2074 6f73     ing.TCPClient so
- 80a1ec8:	6b63 7465 253d 0078                         cket=%x.
+ 80a1db8:	5451 2054 7242 6b6f 7265 5400 5043 6320     QTT Broker.TCP c
+ 80a1dc8:	6e6f 656e 7463 6465 5400 5043 6320 6e6f     onnected.TCP con
+ 80a1dd8:	656e 7463 6f69 206e 6166 6c69 6465 7000     nection failed.p
+ 80a1de8:	6f68 6f74 366e 5f30 7169 7969 766a 6a61     hoton60_iqiyjvaj
+ 80a1df8:	0061 6976 6c6c 4e61 766f 0061 6365 3265     a.villaNova.ece2
+ 80a1e08:	3334 0031 7553 6363 7365 0073 6146 6c69     431.Success.Fail
+ 80a1e18:	6465 7520 6973 676e 4920 4150 6464 6572     ed using IPAddre
+ 80a1e28:	7373 0a00 200a 6150 7373 6465 7420 7261     ss... Passed tar
+ 80a1e38:	6567 2074 6461 7264 7365 2073 6e69 6f66     get address info
+ 80a1e48:	0020 5049 003a 6f50 7472 003a 6f43 6e6e      .IP:.Port:.Conn
+ 80a1e58:	6365 6974 676e 2e2e 002e 6f43 6e6e 6365     ecting....Connec
+ 80a1e68:	6974 6e6f 5320 6174 7574 3a73 0a00 000a     tion Status:....
+ 80a1e78:	7245 6f72 2072 6e69 2120 635f 696c 6e65     Error in !_clien
+ 80a1e88:	2e74 7661 6961 616c 6c62 2865 0029 7245     t.available().Er
+ 80a1e98:	6f72 2072 6e69 6920 4373 6e6f 656e 7463     ror in isConnect
+ 80a1ea8:	6465 2928 0000 4d04 5451 0454 0600 514d     ed()...MQTT...MQ
+ 80a1eb8:	7349 7064 7703 7269 6e69 0067 4354 4350     Isdp.wiring.TCPC
+ 80a1ec8:	696c 6e65 2074 6f73 6b63 7465 253d 0078     lient socket=%x.
 
-080a1ed0 <_ZTVSt23_Sp_counted_ptr_inplaceIN9TCPClient4DataESaIS1_ELN9__gnu_cxx12_Lock_policyE0EE>:
+080a1ed8 <_ZTVSt23_Sp_counted_ptr_inplaceIN9TCPClient4DataESaIS1_ELN9__gnu_cxx12_Lock_policyE0EE>:
 	...
- 80a1ed8:	0c55 080a 0c7d 080a 109f 080a 0c8b 080a     U...}...........
- 80a1ee8:	0c59 080a                                   Y...
+ 80a1ee0:	0c55 080a 0c7d 080a 109f 080a 0c8b 080a     U...}...........
+ 80a1ef0:	0c59 080a                                   Y...
 
-080a1eec <_ZZNSt19_Sp_make_shared_tag5_S_tiEvE5__tag>:
-	...
-
-080a1ef4 <_ZTV9TCPClient>:
-	...
- 80a1efc:	0c91 080a 0cc5 080a 0c11 080a 0c2b 080a     ............+...
- 80a1f0c:	0ea1 080a 0d27 080a 0cf9 080a 0c53 080a     ....'.......S...
- 80a1f1c:	0dc1 080a 10a5 080a 0d5b 080a 0f15 080a     ........[.......
- 80a1f2c:	0fc3 080a 0f7b 080a 0c3b 080a 0f89 080a     ....{...;.......
- 80a1f3c:	0cd9 080a 7061 0070 5925 252d 2d6d 6425     ....app.%Y-%m-%d
- 80a1f4c:	2554 3a48 4d25 253a 2553 007a 7361 7463     T%H:%M:%S%z.asct
- 80a1f5c:	6d69 0065                                   ime.
-
-080a1f60 <_ZTV9IPAddress>:
-	...
- 80a1f68:	1455 080a 1445 080a 1447 080a               U...E...G...
-
-080a1f74 <_ZTV9USBSerial>:
-	...
- 80a1f7c:	153b 080a 15a1 080a 1579 080a 11df 080a     ;.......y.......
- 80a1f8c:	156b 080a 153d 080a 154d 080a 159b 080a     k...=...M.......
- 80a1f9c:	155d 080a 1535 080a                         ]...5...
-
-080a1fa4 <_ZTV11USARTSerial>:
-	...
- 80a1fac:	16c9 080a 1733 080a 170f 080a 11df 080a     ....3...........
- 80a1fbc:	16df 080a 16fb 080a 16ed 080a 1709 080a     ................
- 80a1fcc:	16cb 080a 16d1 080a                         ........
-
-080a1fd4 <_ZTVN5spark9WiFiClassE>:
-	...
- 80a1fdc:	184b 080a 1841 080a 1837 080a 17b5 080a     K...A...7.......
- 80a1fec:	129f 080a 182b 080a 18a9 080a 18b1 080a     ....+...........
- 80a1ffc:	181f 080a 1817 080a 180d 080a 1803 080a     ................
- 80a200c:	17bf 080a                                   ....
-
-080a2010 <_ZTVN5spark12NetworkClassE>:
-	...
- 80a2018:	1869 080a 1873 080a 187d 080a 1887 080a     i...s...}.......
- 80a2028:	1891 080a 189d 080a 18a9 080a 18b1 080a     ................
- 80a2038:	18b9 080a 18c5 080a 18cd 080a 18d7 080a     ................
- 80a2048:	18e1 080a                                   ....
-
-080a204c <_ZTSSt19_Sp_make_shared_tag>:
- 80a204c:	7453 3931 535f 5f70 616d 656b 735f 6168     St19_Sp_make_sha
- 80a205c:	6572 5f64 6174 0067                         red_tag.
-
-080a2064 <_ZTISt19_Sp_make_shared_tag>:
- 80a2064:	20a4 080a 204c 080a                         . ..L ..
-
-080a206c <_ZTIN10__cxxabiv117__class_type_infoE>:
- 80a206c:	2104 080a 2078 080a 2128 080a               .!..x ..(!..
-
-080a2078 <_ZTSN10__cxxabiv117__class_type_infoE>:
- 80a2078:	314e 5f30 635f 7878 6261 7669 3131 5f37     N10__cxxabiv117_
- 80a2088:	635f 616c 7373 745f 7079 5f65 6e69 6f66     _class_type_info
- 80a2098:	0045 0000                                   E...
-
-080a209c <_ZTVN10__cxxabiv117__class_type_infoE>:
- 80a209c:	0000 0000 206c 080a 19c9 080a 19dd 080a     ....l ..........
- 80a20ac:	1b75 080a 1b75 080a 1a47 080a 1989 080a     u...u...G.......
- 80a20bc:	1a2f 080a 19f1 080a 19bd 080a               /...........
-
-080a20c8 <_ZTIN10__cxxabiv120__si_class_type_infoE>:
- 80a20c8:	2104 080a 20d4 080a 206c 080a               .!... ..l ..
-
-080a20d4 <_ZTSN10__cxxabiv120__si_class_type_infoE>:
- 80a20d4:	314e 5f30 635f 7878 6261 7669 3231 5f30     N10__cxxabiv120_
- 80a20e4:	735f 5f69 6c63 7361 5f73 7974 6570 695f     _si_class_type_i
- 80a20f4:	666e 456f 0000 0000                         nfoE....
-
-080a20fc <_ZTVN10__cxxabiv120__si_class_type_infoE>:
- 80a20fc:	0000 0000 20c8 080a 1a71 080a 1a85 080a     ..... ..q.......
- 80a210c:	1b75 080a 1b75 080a 1a47 080a 1989 080a     u...u...G.......
- 80a211c:	1b49 080a 1ad5 080a 1a99 080a               I...........
-
-080a2128 <_ZTISt9type_info>:
- 80a2128:	20a4 080a 2130 080a                         . ..0!..
-
-080a2130 <_ZTSSt9type_info>:
- 80a2130:	7453 7439 7079 5f65 6e69 6f66                St9type_info.
-
-080a213d <link_const_variable_data_end>:
- 80a213d:	00          	.byte	0x00
+080a1ef4 <_ZZNSt19_Sp_make_shared_tag5_S_tiEvE5__tag>:
 	...
 
-080a2140 <link_constructors_location>:
- 80a2140:	080a01f5 	.word	0x080a01f5
- 80a2144:	080a0bed 	.word	0x080a0bed
- 80a2148:	080a12ad 	.word	0x080a12ad
- 80a214c:	080a12bd 	.word	0x080a12bd
- 80a2150:	080a12d9 	.word	0x080a12d9
- 80a2154:	080a1855 	.word	0x080a1855
- 80a2158:	080a1949 	.word	0x080a1949
- 80a215c:	080a195d 	.word	0x080a195d
+080a1efc <_ZTV9TCPClient>:
+	...
+ 80a1f04:	0c91 080a 0cc5 080a 0c11 080a 0c2b 080a     ............+...
+ 80a1f14:	0ea1 080a 0d27 080a 0cf9 080a 0c53 080a     ....'.......S...
+ 80a1f24:	0dc1 080a 10a5 080a 0d5b 080a 0f15 080a     ........[.......
+ 80a1f34:	0fc3 080a 0f7b 080a 0c3b 080a 0f89 080a     ....{...;.......
+ 80a1f44:	0cd9 080a 7061 0070 5925 252d 2d6d 6425     ....app.%Y-%m-%d
+ 80a1f54:	2554 3a48 4d25 253a 2553 007a 7361 7463     T%H:%M:%S%z.asct
+ 80a1f64:	6d69 0065                                   ime.
+
+080a1f68 <_ZTV9IPAddress>:
+	...
+ 80a1f70:	1455 080a 1445 080a 1447 080a               U...E...G...
+
+080a1f7c <_ZTV9USBSerial>:
+	...
+ 80a1f84:	153b 080a 15a1 080a 1579 080a 11df 080a     ;.......y.......
+ 80a1f94:	156b 080a 153d 080a 154d 080a 159b 080a     k...=...M.......
+ 80a1fa4:	155d 080a 1535 080a                         ]...5...
+
+080a1fac <_ZTV11USARTSerial>:
+	...
+ 80a1fb4:	16c9 080a 1733 080a 170f 080a 11df 080a     ....3...........
+ 80a1fc4:	16df 080a 16fb 080a 16ed 080a 1709 080a     ................
+ 80a1fd4:	16cb 080a 16d1 080a                         ........
+
+080a1fdc <_ZTVN5spark9WiFiClassE>:
+	...
+ 80a1fe4:	184b 080a 1841 080a 1837 080a 17b5 080a     K...A...7.......
+ 80a1ff4:	129f 080a 182b 080a 18a9 080a 18b1 080a     ....+...........
+ 80a2004:	181f 080a 1817 080a 180d 080a 1803 080a     ................
+ 80a2014:	17bf 080a                                   ....
+
+080a2018 <_ZTVN5spark12NetworkClassE>:
+	...
+ 80a2020:	1869 080a 1873 080a 187d 080a 1887 080a     i...s...}.......
+ 80a2030:	1891 080a 189d 080a 18a9 080a 18b1 080a     ................
+ 80a2040:	18b9 080a 18c5 080a 18cd 080a 18d7 080a     ................
+ 80a2050:	18e1 080a                                   ....
+
+080a2054 <_ZTSSt19_Sp_make_shared_tag>:
+ 80a2054:	7453 3931 535f 5f70 616d 656b 735f 6168     St19_Sp_make_sha
+ 80a2064:	6572 5f64 6174 0067                         red_tag.
+
+080a206c <_ZTISt19_Sp_make_shared_tag>:
+ 80a206c:	20ac 080a 2054 080a                         . ..T ..
+
+080a2074 <_ZTIN10__cxxabiv117__class_type_infoE>:
+ 80a2074:	210c 080a 2080 080a 2130 080a               .!... ..0!..
+
+080a2080 <_ZTSN10__cxxabiv117__class_type_infoE>:
+ 80a2080:	314e 5f30 635f 7878 6261 7669 3131 5f37     N10__cxxabiv117_
+ 80a2090:	635f 616c 7373 745f 7079 5f65 6e69 6f66     _class_type_info
+ 80a20a0:	0045 0000                                   E...
+
+080a20a4 <_ZTVN10__cxxabiv117__class_type_infoE>:
+ 80a20a4:	0000 0000 2074 080a 19c9 080a 19dd 080a     ....t ..........
+ 80a20b4:	1b75 080a 1b75 080a 1a47 080a 1989 080a     u...u...G.......
+ 80a20c4:	1a2f 080a 19f1 080a 19bd 080a               /...........
+
+080a20d0 <_ZTIN10__cxxabiv120__si_class_type_infoE>:
+ 80a20d0:	210c 080a 20dc 080a 2074 080a               .!... ..t ..
+
+080a20dc <_ZTSN10__cxxabiv120__si_class_type_infoE>:
+ 80a20dc:	314e 5f30 635f 7878 6261 7669 3231 5f30     N10__cxxabiv120_
+ 80a20ec:	735f 5f69 6c63 7361 5f73 7974 6570 695f     _si_class_type_i
+ 80a20fc:	666e 456f 0000 0000                         nfoE....
+
+080a2104 <_ZTVN10__cxxabiv120__si_class_type_infoE>:
+ 80a2104:	0000 0000 20d0 080a 1a71 080a 1a85 080a     ..... ..q.......
+ 80a2114:	1b75 080a 1b75 080a 1a47 080a 1989 080a     u...u...G.......
+ 80a2124:	1b49 080a 1ad5 080a 1a99 080a               I...........
+
+080a2130 <_ZTISt9type_info>:
+ 80a2130:	20ac 080a 2138 080a                         . ..8!..
+
+080a2138 <_ZTSSt9type_info>:
+ 80a2138:	7453 7439 7079 5f65 6e69 6f66                St9type_info.
+
+080a2145 <link_const_variable_data_end>:
+ 80a2145:	00          	.byte	0x00
+	...
+
+080a2148 <link_constructors_location>:
+ 80a2148:	080a01f5 	.word	0x080a01f5
+ 80a214c:	080a0bed 	.word	0x080a0bed
+ 80a2150:	080a12ad 	.word	0x080a12ad
+ 80a2154:	080a12bd 	.word	0x080a12bd
+ 80a2158:	080a12d9 	.word	0x080a12d9
+ 80a215c:	080a1855 	.word	0x080a1855
+ 80a2160:	080a1949 	.word	0x080a1949
+ 80a2164:	080a195d 	.word	0x080a195d
+
+080a2168 <link_constructors_end>:
+	...

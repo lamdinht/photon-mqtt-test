@@ -125,8 +125,8 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
             }
         }
 
-        Serial.println("\n\n Passed target address info ")
-        Serial.println("IP:")
+        Serial.println("\n\n Passed target address info ");
+        Serial.println("IP:");
         Serial.println(ip == NULL);
         Serial.println(ip[0]);
         Serial.println(ip[1]);
@@ -134,12 +134,12 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
         Serial.println(ip[3]);
         Serial.println(domain);
         Serial.println(this->domain.c_str());
-        Serial.println("Port:")
+        Serial.println("Port:");
         Serial.println(port);
         Serial.println("Connecting...");
-        Serial.println("Connection Status:")
+        Serial.println("Connection Status:");
         Serial.println(result);
-        Serial.println("\n\n;")
+        Serial.println("\n\n");
 
         if (result) {
             nextMsgId = 1;

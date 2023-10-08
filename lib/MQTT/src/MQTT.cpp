@@ -114,33 +114,6 @@ bool MQTT::connect(const char *id, const char *user, const char *pass, const cha
             result = _client.connect(this->ip, this->port);
         }
 
-
-        if (!result){
-            IPAddress server(ip[0], ip[1], ip[2], ip[3]);
-            if (_client.connect(server, this->port)){
-                Serial.println("Success");
-            }
-            else{
-                Serial.println("Failed using IPAddress");
-            }
-        }
-
-        Serial.println("\n\n Passed target address info ");
-        Serial.println("IP:");
-        Serial.println(ip == NULL);
-        Serial.println(ip[0]);
-        Serial.println(ip[1]);
-        Serial.println(ip[2]);
-        Serial.println(ip[3]);
-        Serial.println(domain);
-        Serial.println(this->domain.c_str());
-        Serial.println("Port:");
-        Serial.println(port);
-        Serial.println("Connecting...");
-        Serial.println("Connection Status:");
-        Serial.println(result);
-        Serial.println("\n\n");
-
         if (result) {
             nextMsgId = 1;
             uint16_t length = 5;
